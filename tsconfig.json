@@ -17,7 +17,8 @@
     "paths": {
       "env/*": ["env/*"],
       "apps/*": ["apps/*"],
-      "middlewares/*": ["middlewares/*"]
+      "middlewares/*": ["middlewares/*"],
+      "routes/*": ["routes/*"]
     }
   },
   "ts-node": { "files": true, "require": ["tsconfig-paths/register"] },
