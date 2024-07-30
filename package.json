@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "rocketium-assignment-server",
   "main": "dist/index.js",
-  "engines": {
-    "node": "^18.0.0"
-  },
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsc; tscpaths -p tsconfig.json -s src -o dist",
