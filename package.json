@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/benodiwal/Rocketium-Assignment#readme",
   "dependencies": {
+    "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "morgan": "^1.10.0",

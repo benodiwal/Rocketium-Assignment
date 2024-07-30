@@ -7,6 +7,7 @@ const expressApp = Express();
 
 expressApp.use(logger);
 expressApp.use(Express.json());
+
 expressApp.use('/health', healthRouter);
 expressApp.use('/data', dataRouter);
 
