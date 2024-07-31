@@ -2,7 +2,7 @@ import type { Request } from "express";
 import { FIELDS, RESERVED_KEYS } from "../constants/index";
 import { DataRecord } from "types/index";
 
-class QueryEngine {
+class QueryEngineService {
   private static filterByField(
     item: DataRecord,
     key: keyof DataRecord,
@@ -39,13 +39,13 @@ class QueryEngine {
       const fieldValue = query[key];
       if (typeof fieldValue === "string") {
         resData = resData.filter((item) => {
-          return QueryEngine.filterByField(item, key, fieldValue, caseInsensitive);
+          return QueryEngineService.filterByField(item, key, fieldValue, caseInsensitive);
         });
       } else if (Array.isArray(fieldValue)) {
         resData = resData.filter((item) => {
           return fieldValue.every((f) => {
             const value = f as string;
-            return QueryEngine.filterByField(item, key, value, caseInsensitive);
+            return QueryEngineService.filterByField(item, key, value, caseInsensitive);
           });
         });
       }
@@ -84,4 +84,4 @@ class QueryEngine {
   }
 }
 
-export default QueryEngine;
+export default QueryEngineService;
