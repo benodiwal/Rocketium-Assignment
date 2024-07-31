@@ -1,15 +1,10 @@
-import type { Request } from "express";
-import { FIELDS, RESERVED_KEYS } from "../constants/index";
-import { DataRecord } from "types/index";
+import type { Request } from 'express';
+import { FIELDS, RESERVED_KEYS } from '../constants/index';
+import { DataRecord } from 'types/index';
 
 class QueryEngineService {
-  private static filterByField(
-    item: DataRecord,
-    key: keyof DataRecord,
-    value: string,
-    caseInsensitive: boolean = false
-  ): boolean {
-    if (typeof item[key] === "number") {
+  private static filterByField(item: DataRecord, key: keyof DataRecord, value: string, caseInsensitive: boolean = false): boolean {
+    if (typeof item[key] === 'number') {
       return item[key] === parseInt(value as unknown as string);
     } else if (caseInsensitive) {
       if (!item[key]) return false;
@@ -19,15 +14,12 @@ class QueryEngineService {
     }
   }
 
-  public static executeQueries(
-    data: DataRecord[],
-    query: Request["query"]
-  ): DataRecord[] {
+  public static executeQueries(data: DataRecord[], query: Request['query']): DataRecord[] {
     const sortBy = query['sortBy'];
     const order = query['order'];
     const limit = query['limit'];
     const offset = query['offset'];
-    const caseInsensitive = query['insensitive'] === "true";
+    const caseInsensitive = query['case_insensitive'] === 'true';
 
     let resData = [...data];
 
@@ -37,7 +29,7 @@ class QueryEngineService {
       }
       const key = stringKey as keyof DataRecord;
       const fieldValue = query[key];
-      if (typeof fieldValue === "string") {
+      if (typeof fieldValue === 'string') {
         resData = resData.filter((item) => {
           return QueryEngineService.filterByField(item, key, fieldValue, caseInsensitive);
         });
@@ -51,10 +43,10 @@ class QueryEngineService {
       }
     }
 
-    if (typeof sortBy === "string" && FIELDS.includes(sortBy)) {
+    if (typeof sortBy === 'string' && FIELDS.includes(sortBy)) {
       const typedSortBy = sortBy as keyof DataRecord;
       resData.sort((a, b) => {
-        if (typeof a[typedSortBy] === "string") {
+        if (typeof a[typedSortBy] === 'string') {
           return a[typedSortBy].localeCompare(b[typedSortBy] as string);
         } else {
           return (a[typedSortBy] as number) - (b[typedSortBy] as number);
@@ -62,18 +54,18 @@ class QueryEngineService {
       });
     }
 
-    if (typeof order === "string" && order === "desc") {
+    if (typeof order === 'string' && order === 'desc') {
       resData.reverse();
     }
 
-    if (typeof offset === "string") {
+    if (typeof offset === 'string') {
       const numberOffset = parseInt(offset);
       if (!Number.isNaN(numberOffset)) {
         resData = resData.slice(numberOffset);
       }
     }
 
-    if (typeof limit === "string") {
+    if (typeof limit === 'string') {
       const numberLimit = parseInt(limit);
       if (!Number.isNaN(numberLimit)) {
         resData = resData.slice(0, numberLimit);
