@@ -5,7 +5,7 @@ import healthRouter from 'routes/health.route';
 
 const expressApp = Express();
 
-expressApp.use(logger);
+expressApp.use(logger());
 expressApp.use(Express.json());
 
 expressApp.use('/health', healthRouter);
